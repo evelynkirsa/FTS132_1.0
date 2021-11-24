@@ -2,7 +2,7 @@ import pytest
 
 from main import somar_dois_numeros, subtrair_dois_numeros, multiplicar_dois_numeros, dividir_dois_numeros, \
     elevar_um_numero_pelo_outro, calcular_area_do_quadrado, calcular_area_do_retangulo, calcular_area_do_triangulo, \
-    calcular_area_do_circulo
+    calcular_area_do_circulo, calcular_area_do_paralelograma
 
 
 def testar_somar_dois_numeros():
@@ -68,13 +68,33 @@ def testar_calcular_area_do_triangulo():
     resultado_atual = calcular_area_do_triangulo(num1, num2)
     assert resultado_atual == resultado_esperado
 
-def testar_calcular_area_do_triangulo():
-    num1 = 8
-    resultado_esperado = 200.96
-    resultado_atual = calcular_area_do_circulo(num1)
+@pytest.mark.parametrize('raio,resultado_esperado',[
+
+                                (1, 3.14), #teste 1
+                                (2, 12.56), #teste 2
+                                (3, 28.26), #TESTE 3
+                                (4, 50.24), #teste 4
+                                ('a', 'falha no calculo - Raio não é um numero'), #teste 5
+                                (' ', 'falha no calculo - Raio não é um numero'), #teste 6
+                         ])
+def testar_calcular_area_do_circulo(raio, resultado_esperado):
+    # 1 - Configura / Comentamos para que os parametros sejam lidos
+    #num1 = 2
+    #resultado_esperado = 12.56
+    resultado_atual = calcular_area_do_circulo(raio)
     assert resultado_atual == resultado_esperado
 
-#
+def testar_calcular_volume_paralelograma():
+    largura = 5
+    comprimento = 10
+    altura = 2
+    resultado_esperado = 100
+    resultado_atual = calcular_area_do_paralelograma(largura, comprimento, altura)
+
+    assert resultado_atual == resultado_esperado
+
+
+
 
 
 

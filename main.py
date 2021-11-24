@@ -31,11 +31,12 @@ def calcular_area_do_triangulo(num1, num2):
     return num1 * num2 / 2
 
 def calcular_area_do_circulo(raio):
-    return 3.14 * raio ** 2
-
-
-
-
+    try:
+        return 3.14 * raio ** 2
+    except TypeError:
+        return 'falha no calculo - Raio não é um numero'
+def calcular_area_do_paralelograma(largura, comprimento, altura):
+    return largura * comprimento * altura
 
 if __name__ == '__main__':
 
