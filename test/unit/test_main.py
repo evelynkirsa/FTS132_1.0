@@ -74,6 +74,7 @@ def testar_calcular_area_do_triangulo():
     resultado_atual = calcular_area_do_circulo(num1)
     assert resultado_atual == resultado_esperado
 
+#
 
 
 
