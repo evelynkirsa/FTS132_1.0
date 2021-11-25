@@ -1,3 +1,5 @@
+import csv
+
 import pytest
 
 from main import somar_dois_numeros, subtrair_dois_numeros, multiplicar_dois_numeros, dividir_dois_numeros, \
@@ -6,18 +8,19 @@ from main import somar_dois_numeros, subtrair_dois_numeros, multiplicar_dois_num
 
 
 def testar_somar_dois_numeros():
-# - 1 Etapa: Configura / Prepara
-#Dados / Valores
-#Entrada / Input
+    # - 1 Etapa: Configura / Prepara
+    # Dados / Valores
+    # Entrada / Input
     num1 = 5
     num2 = 7
-#saida / output
+    # saida / output
     resultado_esperado = 12
 
-# - 2 Etapa: Executa
+    # - 2 Etapa: Executa
     resultado_atual = somar_dois_numeros(num1, num2)
-#- 3 Etapa: Confirma / Check / Valida
+    # - 3 Etapa: Confirma / Check / Valida
     assert resultado_atual == resultado_esperado
+
 
 def testar_subtrair_dois_numeros():
     num1 = 7
@@ -26,12 +29,14 @@ def testar_subtrair_dois_numeros():
     resultado_atual = subtrair_dois_numeros(num1, num2)
     assert resultado_atual == resultado_esperado
 
+
 def testar_multiplicar_dois_numero():
     num1 = 10
     num2 = 5
     resultado_esperado = 50
     resultado_atual = multiplicar_dois_numeros(num1, num2)
     assert resultado_atual == resultado_esperado
+
 
 def testar_dividir_dois_numeros():
     num1 = 100
@@ -40,12 +45,14 @@ def testar_dividir_dois_numeros():
     resultado_atual = dividir_dois_numeros(num1, num2)
     assert resultado_atual == resultado_esperado
 
+
 def testar_elevar_um_numero_pelo_outro():
     num1 = 4
     num2 = 3
     resultado_esperado = 64
     resultado_atual = elevar_um_numero_pelo_outro(num1, num2)
     assert resultado_atual == resultado_esperado
+
 
 def testar_calcular_area_do_quadrado():
     num1 = 6
@@ -54,12 +61,14 @@ def testar_calcular_area_do_quadrado():
     resutado_atual = calcular_area_do_quadrado(num1, num2)
     assert resutado_atual == resultado_esperado
 
+
 def testar_calcular_area_do_retangulo():
     num1 = 8
     num2 = 9
     resultado_esperado = 72
     resultado_atual = calcular_area_do_retangulo(num1, num2)
     assert resultado_atual == resultado_esperado
+
 
 def testar_calcular_area_do_triangulo():
     num1 = 4
@@ -68,33 +77,48 @@ def testar_calcular_area_do_triangulo():
     resultado_atual = calcular_area_do_triangulo(num1, num2)
     assert resultado_atual == resultado_esperado
 
-@pytest.mark.parametrize('raio,resultado_esperado',[
 
-                                (1, 3.14), #teste 1
-                                (2, 12.56), #teste 2
-                                (3, 28.26), #TESTE 3
-                                (4, 50.24), #teste 4
-                                ('a', 'falha no calculo - Raio não é um numero'), #teste 5
-                                (' ', 'falha no calculo - Raio não é um numero'), #teste 6
-                         ])
+@pytest.mark.parametrize('raio,resultado_esperado', [
+
+    (1, 3.14),  # teste 1
+    (2, 12.56),  # teste 2
+    (3, 28.26),  # TESTE 3
+    (4, 50.24),  # teste 4
+    ('a', 'falha no calculo - Raio não é um numero'),  # teste 5
+    (' ', 'falha no calculo - Raio não é um numero'),  # teste 6
+])
 def testar_calcular_area_do_circulo(raio, resultado_esperado):
     # 1 - Configura / Comentamos para que os parametros sejam lidos
-    #num1 = 2
-    #resultado_esperado = 12.56
+    # num1 = 2
+    # resultado_esperado = 12.56
     resultado_atual = calcular_area_do_circulo(raio)
     assert resultado_atual == resultado_esperado
 
-def testar_calcular_volume_paralelograma():
+
+# Ler dados de um csv para usar no teste seguinte
+def ler_dados_csv():
+    dados_csv = []  # criação de uma lista vazia
+    nome_arquivo = 'C:/Users/User/PycharmProjects/FTS132/test/db/massa_caixa.csv'  # local e nome do arquivo em massa
+    try:
+        with open(nome_arquivo, newline='') as csvfile:  # repetir a leitura até o fim do arquivo
+            campos = csv.reader(csvfile, delimiter=',')
+            next(campos)
+            for linha in campos:
+                dados_csv.append(linha)
+        return dados_csv
+    except FileNotFoundError:
+        print(f'Arquivo não encontrado:{nome_arquivo}')
+    except Exception as fail:
+        print(f'Falha imprevista:{fail}')
+
+
+@pytest.mark.parametrize('id,largura,comprimento,altura,resultado_esperado', ler_dados_csv())
+def testar_calcular_volume_paralelograma(id, largura, comprimento, altura, resultado_esperado):
+    '''
     largura = 5
     comprimento = 10
     altura = 2
     resultado_esperado = 100
-    resultado_atual = calcular_area_do_paralelograma(largura, comprimento, altura)
-
-    assert resultado_atual == resultado_esperado
-
-
-
-
-
-
+    '''
+    resultado_atual = calcular_area_do_paralelograma(int(largura), int(comprimento), int(altura))
+    assert resultado_atual == int(resultado_esperado)
