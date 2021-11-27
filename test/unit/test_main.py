@@ -4,7 +4,7 @@ import pytest
 
 from main import somar_dois_numeros, subtrair_dois_numeros, multiplicar_dois_numeros, dividir_dois_numeros, \
     elevar_um_numero_pelo_outro, calcular_area_do_quadrado, calcular_area_do_retangulo, calcular_area_do_triangulo, \
-    calcular_area_do_circulo, calcular_area_do_paralelograma
+    calcular_area_do_circulo, calcular_area_do_paralelograma, calcular_volume_do_cubo, calcular_volume_do_cilindro
 
 
 def testar_somar_dois_numeros():
@@ -94,7 +94,21 @@ def testar_calcular_area_do_circulo(raio, resultado_esperado):
     resultado_atual = calcular_area_do_circulo(raio)
     assert resultado_atual == resultado_esperado
 
+@pytest.mark.parametrize('largura,comprimento,altura,resultado_esperado', [
 
+    (10, 10, 10, 1.000),
+    (20, 20, 20, 8.000),
+    (30, 30, 30, 27.000),
+])
+
+def testar_calcular_volume_do_cubo(largura, comprimento, altura, resultado_esperado):
+    resultado_esperado = 1000
+    resultado_atual = calcular_volume_do_cubo
+    assert resultado_atual == resultado_esperado
+
+
+
+'''
 # Ler dados de um csv para usar no teste seguinte
 def ler_dados_csv():
     dados_csv = []  # criação de uma lista vazia
@@ -114,11 +128,39 @@ def ler_dados_csv():
 
 @pytest.mark.parametrize('id,largura,comprimento,altura,resultado_esperado', ler_dados_csv())
 def testar_calcular_volume_paralelograma(id, largura, comprimento, altura, resultado_esperado):
-    '''
+
     largura = 5
     comprimento = 10
     altura = 2
     resultado_esperado = 100
-    '''
+
     resultado_atual = calcular_area_do_paralelograma(int(largura), int(comprimento), int(altura))
     assert resultado_atual == int(resultado_esperado)
+'''
+
+def ler_dados_csv():
+    dados_csv = []
+    nome_arquivo = 'C:/Users/User/PycharmProjects/FTS132/test/db/massa_caixa.csv'
+    try:
+        with open(nome_arquivo, newline='') as csvfile:  # repetir a leitura até o fim do arquivo
+            campos = csv.reader(csvfile, delimiter=',')
+            next(campos)
+            for linha in campos:
+                dados_csv.append(linha)
+        return dados_csv
+    except FileNotFoundError:
+        print(f'Arquivo não encontrado:{nome_arquivo}')
+    except Exception as fail:
+        print(f'Falha Imprevista:{fail}')
+
+@pytest.mark.parametrize('id,pi,raio,altura,resultado_esperado', ler_dados_csv())
+def testar_calcular_volume_do_cilindro(id, largura, comprimento, altural, resultado_esperado):
+
+    pi = 3.14
+    raio = 4
+    altura = 9
+    resultado_esperado = 401.92
+
+    resultado_atual = calcular_volume_do_cilindro(int(pi), int(raio), int(altura))
+    assert resultado_atual == int(resultado_esperado)
+

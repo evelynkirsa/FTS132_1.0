@@ -38,6 +38,15 @@ def calcular_area_do_circulo(raio):
 def calcular_area_do_paralelograma(largura, comprimento, altura):
     return largura * comprimento * altura
 
+def calcular_volume_do_cubo(largura, comprimento, altura):
+    return largura * comprimento * altura
+
+def calcular_volume_do_cilindro(raio, altura):
+    try:
+        return 3.14 * raio ** 2 * altura
+    except TypeError:
+        return 'falha no calculo - raio não é um numero'
+
 if __name__ == '__main__':
 
     resultado = somar_dois_numeros(5,7)
@@ -67,9 +76,15 @@ if __name__ == '__main__':
     resultado = calcular_area_do_circulo(8)
     print(f' A Area do circulo é {resultado}')
 
+    resultado = calcular_volume_do_cubo(10,10,10)
+    print(f'O volume do cubo é {resultado}')
 
-    #Desgustador / Teste
+    resultado = calcular_volume_do_cilindro(2,30)
+    print(f'O volume do cilindro é {resultado}')
+
 '''
+    #Desgustador / Teste
+
     def testar_somar_dois_numeros():
 # - 1 Etapa: Configura / Prepara
 #Dados / Valores
