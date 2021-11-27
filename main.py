@@ -79,7 +79,7 @@ if __name__ == '__main__':
     resultado = calcular_volume_do_cubo(10,10,10)
     print(f'O volume do cubo é {resultado}')
 
-    resultado = calcular_volume_do_cilindro(2,30)
+    resultado = calcular_volume_do_cilindro(4,9)
     print(f'O volume do cilindro é {resultado}')
 
 '''

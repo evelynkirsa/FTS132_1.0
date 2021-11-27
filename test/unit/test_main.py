@@ -153,14 +153,13 @@ def ler_dados_csv():
     except Exception as fail:
         print(f'Falha Imprevista:{fail}')
 
-@pytest.mark.parametrize('id,pi,raio,altura,resultado_esperado', ler_dados_csv())
-def testar_calcular_volume_do_cilindro(id, largura, comprimento, altural, resultado_esperado):
+@pytest.mark.parametrize('id,raio,altura,resultado_esperado', ler_dados_csv())
+def testar_calcular_volume_do_cilindro(id, raio, altura, resultado_esperado):
 
-    pi = 3.14
     raio = 4
     altura = 9
-    resultado_esperado = 401.92
+    resultado_esperado = 452.16
 
-    resultado_atual = calcular_volume_do_cilindro(int(pi), int(raio), int(altura))
-    assert resultado_atual == int(resultado_esperado)
+    resultado_atual = calcular_volume_do_cilindro(int(raio), int(altura))
+    assert resultado_atual == float(resultado_esperado)
 
