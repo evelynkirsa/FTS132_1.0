@@ -121,3 +121,51 @@ def testar_excluir_usuario():
         case 404:
             print('usuario não encontrado')
 
+def testar_login_do_usuario():
+    username = 'mer'
+    password = 'lelele'
+    status_code_esperado = 200
+    codigo_esperado = 200
+    tipo_esperado = 'unknown'
+    inicio_mensagem_esperada = 'logged in user session:'
+
+    #executa
+    resposta = requests.get(
+        url=f'{url}/login?username={username}&password={password}',
+        headers=headers
+    )
+    #formatação
+    corpo_da_resposta = resposta.json()
+    print(resposta)
+    print(resposta.status_code)
+    print(corpo_da_resposta)
+
+    #Valida
+    assert resposta.status_code == status_code_esperado
+    assert corpo_da_resposta['code'] == codigo_esperado
+    assert corpo_da_resposta['type'] == tipo_esperado
+    assert corpo_da_resposta['message'].find(inicio_mensagem_esperada) != -1
+
+    frase = 'Neste fim de ano planeje seu sucesso'
+    assert frase.find('sucesso') != -1
+
+    #Extrair
+    # Na mensagem "logged in user session:1638120238950" queremos pegar os numeros
+    mensagem_recebida = token_usuario = corpo_da_resposta['message']
+    print(f' A mensagem recebida é:{mensagem_recebida}')
+    token_usuario = mensagem_recebida[23:37]
+    print(f'O token do usuario é: {token_usuario}')
+
+    #exemplo
+    frase = 'Saldo: R$1.987,65'
+    valor = frase[8:17]
+    print(f' O valor é: {valor}')
+
+def testar_sequencia_de_testes():
+    testar_criar_usuario()
+    testar_login_do_usuario()
+    testar_alterar_usuario()
+    testar_consultar_usuario()
+    testar_excluir_usuario()
+
+
